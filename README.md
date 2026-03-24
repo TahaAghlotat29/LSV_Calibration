@@ -5,7 +5,7 @@ This repository implements a complete calibration engine for the Local Stochasti
 In equity derivatives trading, pure local volatility models tend to flatten the forward smile, often underpricing path-dependent options. Conversely, pure stochastic volatility models struggle to perfectly calibrate to the short-term skew. The LSV model combines the strengths of both: the stochastic dynamic manages the forward smile, while a non-parametric leverage function ensures exact calibration to the market's vanilla surface.
 
 ### 1. Target Market Generation (SSVI & Dupire)
-To avoid static arbitrage in the target implied volatility surface, we generate a synthetic market using the Surface Stochastic Volatility Inspired (SSVI) parameterization. The total variance $w(k, t) = \sigma_{IV}^2(k, t) t$, where $k = \log(K/F)$, is defined as:
+To avoid static arbitrage in the target implied volatility surface, we generate a synthetic market using the Surface Stochastic Volatility Inspired (SSVI) parameterization. The total variance $w(k, t) = \sigma_{IV}^2(k, t) , where $k = \log(K/F)$, is defined as:
 
 $$w(k, t) = \frac{\theta_t}{2} \left( 1 + \rho \phi_t k + \sqrt{(\phi_t k + \rho)^2 + (1-\rho^2)} \right)$$
 
@@ -29,7 +29,7 @@ $$L(K, t) = \frac{\sigma_{LV}(K,t)}{\sqrt{\mathbb{E}[V_t | S_t = K]}}$$
 
 The conditional expectation $\mathbb{E}[V_t | S_t = K]$ is computed cross-sectionally across the Monte Carlo paths using a Nadaraya-Watson kernel regression with a Gaussian kernel and Silverman's rule-of-thumb bandwidth $h$:
 
-$$\mathbb{E}[V_t | S_t = K] \approx \frac{\sum_{i=1}^N V_t^{(i)} \exp\left(-\frac{1}{2}\left(\frac{S_t^{(i)} - K}{h}\right)^2\right)}{\sum_{i=1}^N \exp\left(-\frac{1}{2}\left(\frac{S_t^{(i)} - K}{h}\right)^2\right)}$$
+$$\mathbb{E}[V_t | S_t = K] =  \frac{\sum_{i=1}^N V_t^{(i)} \exp\left(-\frac{1}{2}\left(\frac{S_t^{(i)} - K}{h}\right)^2\right)}{\sum_{i=1}^N \exp\left(-\frac{1}{2}\left(\frac{S_t^{(i)} - K}{h}\right)^2\right)}$$
 
 ### 4. Local Stochastic Volatility Diffusion
 Once $L(K, t)$ is calibrated and interpolated (via bivariate splines), the final LSV asset paths are simulated under the risk-neutral measure:
