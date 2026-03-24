@@ -32,7 +32,7 @@ The conditional expectation $\mathbb{E}[V_t | S_t = K]$ is computed cross-sectio
 $$\mathbb{E}[V_t | S_t = K] =  \frac{\sum_{i=1}^N V_t^{(i)} \exp\left(-\frac{1}{2}\left(\frac{S_t^{(i)} - K}{h}\right)^2\right)}{\sum_{i=1}^N \exp\left(-\frac{1}{2}\left(\frac{S_t^{(i)} - K}{h}\right)^2\right)}$$
 
 ### 4. Local Stochastic Volatility Diffusion
-Once $L(K, t)$ is calibrated and interpolated (via bivariate splines), the final LSV asset paths are simulated under the risk-neutral measure:
+Once $L(K, t)$ is calibrated and interpolated, the final LSV asset paths are simulated under the risk-neutral measure:
 
 $$dS_t = (r-q)S_t dt + L(S_t, t)\sqrt{V_t^+}S_t dW_t^1$$
 
