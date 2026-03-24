@@ -4,7 +4,7 @@ This repository implements a complete calibration engine for the Local Stochasti
 
 In equity derivatives trading, pure local volatility models tend to flatten the forward smile, often underpricing path-dependent options. Conversely, pure stochastic volatility models struggle to perfectly calibrate to the short-term skew. The LSV model combines the strengths of both: the stochastic dynamic manages the forward smile, while a non-parametric leverage function ensures exact calibration to the market's vanilla surface.
 
-### 1. Target Market Generation (SSVI & Dupire)
+### 1. SSVI & Dupire
 To avoid static arbitrage in the target implied volatility surface, we generate a synthetic market using the Surface Stochastic Volatility Inspired (SSVI) parameterization. The total variance $w(k, t) = \sigma_{IV}^2(k, t)$ , where $k = \log(K/F)$, is defined as:
 
 $$w(k, t) = \frac{\theta_t}{2} \left( 1 + \rho \phi_t k + \sqrt{(\phi_t k + \rho)^2 + (1-\rho^2)} \right)$$
@@ -22,7 +22,7 @@ $$d\langle W^1, W^2 \rangle_t = \rho dt$$
 
 The paths are simulated using an Euler-Maruyama scheme. To handle the boundary condition at zero, we implement the **Full Truncation** scheme, evaluating the drift and diffusion coefficients using $V_t^+ = \max(V_t, 0)$.
 
-### 3. Leverage Function Calibration (Nadaraya-Watson)
+### 3. Leverage Function Calibration 
 To recover the exact local volatility $\sigma_{LV}$, the pure stochastic variance must be adjusted by a deterministic leverage function $L(K, t)$:
 
 $$L(K, t) = \frac{\sigma_{LV}(K,t)}{\sqrt{\mathbb{E}[V_t | S_t = K]}}$$
